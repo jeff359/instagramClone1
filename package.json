@@ -8,8 +8,10 @@
     "@testing-library/user-event": "^13.5.0",
     "date-fns": "^2.28.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
+    "firebase": "^9.6.11",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -44,6 +46,9 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.4.0"
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "postcss-cli": "^9.1.0",
+    "prop-types": "^15.8.1",
+    "tailwindcss": "^3.0.24"
   }
 }
