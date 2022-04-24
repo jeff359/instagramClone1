@@ -448,11 +448,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: auto;
   margin-right: auto;
 }
-.mt-2 {
-  margin-top: 0.5rem;
-}
 .mb-4 {
   margin-bottom: 1rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
 }
 .mr-3 {
   margin-right: 0.75rem;
@@ -506,13 +506,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-border-opacity: 1;
   border-color: rgb(219 219 219 / var(--tw-border-opacity));
 }
-.bg-blue-medium {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 92 152 / var(--tw-bg-opacity));
-}
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.bg-blue-medium {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 92 152 / var(--tw-bg-opacity));
 }
 .p-4 {
   padding: 1rem;

@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-shadow */
+/* eslint-disable linebreak-style */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable linebreak-style */
@@ -25,9 +27,11 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 import { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, withRouter } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import FirebaseContext from "../context/firebase";
 import * as ROUTES from '../constants/routes';
+
 /* eslint-disable linebreak-style */
 function Login() {
   // eslint-disable-next-line no-unused-vars
@@ -37,7 +41,18 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const isInvalid = password === "" || emailAddress === "";
-  const handleLogin = async (event) => {};
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const auth = getAuth();
+    try {
+      await signInWithEmailAndPassword(auth, emailAddress, password);
+      history(ROUTES.DASHBOARD);
+    } catch (error) {
+      setEmailAddress('');
+      setPassword('');
+      setError(error.message);
+    }
+  };
   useEffect(() => {
     document.title = "Login - Instagram";
   }, []);
