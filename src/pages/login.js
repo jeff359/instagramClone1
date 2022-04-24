@@ -1,4 +1,15 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable linebreak-style */
+/* eslint-disable spaced-comment */
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-closing-bracket-location */
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-indent-props */
+/* eslint-disable linebreak-style */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable linebreak-style */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-closing-tag-location */
@@ -14,8 +25,9 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
+import * as ROUTES from '../constants/routes';
 /* eslint-disable linebreak-style */
 function Login() {
   // eslint-disable-next-line no-unused-vars
@@ -38,6 +50,7 @@ function Login() {
         />
       </div>
       <div className="flex flex-col w-2/5">
+      <div className="flex flex-col items-center bg-white p-4 border border-gray-primary mb-4 rounded">
         <h1 className="flex justify-center w-full">
           <img
             src="/images/logo.png"
@@ -63,7 +76,24 @@ function Login() {
             className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
             onChange={({ target }) => setPassword(target.value)}
           />
+          <button
+              disabled={isInvalid}
+              type="submit"
+              className={`bg-blue-medium text-white w-full rounded h-8 font-bold
+            ${isInvalid && 'opacity-50'}`}
+            >
+              Login
+          </button>
         </form>
+        </div>
+        <div className="flex justify-center items-center flex-col w-full bg-white p-4 rounded border border-gray-primary">
+          <p className="text-sm">
+Don't have an account?{` `}
+<Link to={ROUTES.SIGN_UP} className="font-bold text-blue-medium">
+              Sign up
+            </Link>
+</p>
+          </div>
       </div>
     </div>
   );
