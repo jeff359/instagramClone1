@@ -1,4 +1,8 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable max-len */
+/* eslint-disable linebreak-style */
+/* eslint-disable comma-dangle */
+/* eslint-disable linebreak-style */
 
 /* eslint-disable linebreak-style */
 /* eslint-disable no-empty */
@@ -32,28 +36,64 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate, withRouter } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
 import FirebaseContext from "../context/firebase";
 import * as ROUTES from "../constants/routes";
-import doesUsernameExist from '../services/firebase';
+import { db } from "../lib/firebase";
+import { doesUsernameExist } from '../services/firebase';
 
 /* eslint-disable linebreak-style */
 function SignUp() {
   // eslint-disable-next-line no-unused-vars
   const history = useNavigate();
-  const { firebase } = useContext(FirebaseContext);
+  const firebase = useContext(FirebaseContext);
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const isInvalid = password === "" || emailAddress === "";
-  const handleSignup = async (event) => {
+  console.log(firebase);
+  const handleSignUp = async (event) => {
     event.preventDefault();
+    
     const usernameExists = await doesUsernameExist(username);
-    const auth = getAuth();
-    try {
-    } catch (error) {}
+    if (!usernameExists) {
+      const auth = getAuth();
+      
+      try {
+        const createdUserResult = await createUserWithEmailAndPassword(auth, emailAddress, password);
+
+        // authentication
+        // -> emailAddress & password & username (displayName)
+        await updateProfile(auth.currentUser, {
+          displayName: username
+        });
+
+        // firebase user collection (create a document)
+        
+        await addDoc(collection(db, "users"), {
+            userId: createdUserResult.user.uid,
+            username: username.toLowerCase(),
+            fullName,
+            emailAddress: emailAddress.toLowerCase(),
+            following: ['2'],
+            followers: [],
+            dateCreated: Date.now()
+          });
+
+        history.push(ROUTES.DASHBOARD);
+      } catch (error) {
+        setFullName('');
+        setEmailAddress('');
+        setPassword('');
+        setError(error.message);
+      }
+    } else {
+      setUsername('');
+      setError('That username is already taken, please try another.');
+    }
   };
   useEffect(() => {
     document.title = "Sign Up - Instagram";
@@ -78,7 +118,7 @@ function SignUp() {
 
           {error && <p className="mb-4 text-xs text-red-primary">{error}</p>}
 
-          <form onSubmit={handleSignup} method="POST">
+          <form onSubmit={handleSignUp} method="POST">
             <input
               aria-label="Enter your username"
               type="text"

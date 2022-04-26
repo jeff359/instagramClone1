@@ -4,6 +4,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { reduxFirestore, getFirestore } from 'redux-firestore';
 
 import { seedDatabase } from '../seed';
 
@@ -17,8 +18,7 @@ const config = {
 };
 
 const Firebase = firebase.initializeApp(config);
+export const db = getFirestore(Firebase);
 const { FieldValue } = Firebase.firestore;
-
-console.log('Firebase', Firebase);
 
 export { Firebase, FieldValue };
