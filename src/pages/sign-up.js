@@ -38,9 +38,10 @@ import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate, withRouter } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
+
 import FirebaseContext from "../context/firebase";
 import * as ROUTES from "../constants/routes";
-import { db } from "../lib/firebase";
+import { db, colRef } from "../lib/firebase";
 import { doesUsernameExist } from '../services/firebase';
 
 /* eslint-disable linebreak-style */
@@ -73,7 +74,7 @@ function SignUp() {
 
         // firebase user collection (create a document)
         
-        await addDoc(collection(db, "users"), {
+        await addDoc(colRef, {
             userId: createdUserResult.user.uid,
             username: username.toLowerCase(),
             fullName,
@@ -81,6 +82,12 @@ function SignUp() {
             following: ['2'],
             followers: [],
             dateCreated: Date.now()
+          })
+          .then(() => {
+            setUsername('');
+            setFullName('');
+            setEmailAddress('');
+            setPassword('');
           });
 
         history.push(ROUTES.DASHBOARD);

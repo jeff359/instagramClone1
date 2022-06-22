@@ -1,10 +1,13 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable spaced-comment */
+/* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
-import firebase from 'firebase/compat/app';
+
+import { initializeApp } from 'firebase/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { reduxFirestore, getFirestore } from 'redux-firestore';
+import { reduxFirestore, getFirestore, collection } from 'firebase/firestore';
 
 import { seedDatabase } from '../seed';
 
@@ -17,8 +20,9 @@ const config = {
   appId: '1:358293155662:web:f6c8b6904ce68209ceb81f',
 };
 
-const Firebase = firebase.initializeApp(config);
-export const db = getFirestore(Firebase);
-const { FieldValue } = Firebase.firestore;
+const firebase = initializeApp(config);
+export const db = getFirestore();
+export const colRef = collection(db, 'users');
+const FieldValue = firebase.firestore;
 
-export { Firebase, FieldValue };
+export { firebase, FieldValue };

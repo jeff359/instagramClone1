@@ -8,12 +8,12 @@ import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import App from './App';
 import FirebaseContext from './context/firebase';
-import { Firebase, FieldValue } from './lib/firebase';
+import { firebase /* FieldValue */ } from './lib/firebase';
 import './styles/app.css';
 
 ReactDOMClient.createRoot(document.getElementById('root'),)
 .render(
-  <FirebaseContext.Provider value={{ Firebase, FieldValue }}>
+  <FirebaseContext.Provider value={{ firebase /* FieldValue */ }}>
     <App />
   </FirebaseContext.Provider>,
 );
